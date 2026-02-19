@@ -51,7 +51,7 @@ function toAgeBand(age: number): AgeBand {
 }
 
 export function attachDerived(input: RecommendInput): RecommendInput {
-  // ✅ dob 질문 id = q0
+  // dob 질문 id = q0
   const dobStr = input?.answers?.q0?.trim();
   const genderStr = (input?.answers?.q0_gender ?? "").trim();
 

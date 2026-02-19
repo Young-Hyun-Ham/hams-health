@@ -1,7 +1,7 @@
 /* src/routes/layout.css */
 @import "tailwindcss";
 
-/* ✅ 다크 변형을 media가 아니라 class(.dark)로 강제 */
+/* 다크 변형을 media가 아니라 class(.dark)로 강제 */
 @custom-variant dark (&:where(.dark, .dark *));
 
 @plugin "@tailwindcss/forms";

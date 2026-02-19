@@ -9,7 +9,7 @@ function toOptions(ids: string[]) {
     .map((s) => ({ label: (s as any).name, value: (s as any).id, thumbnail: `/workouts/${(s as any).id}.png` }));
 }
 
-// ✅ 시작(워밍업/모빌리티/초반 스트레칭) 후보
+// 시작(워밍업/모빌리티/초반 스트레칭) 후보
 export const PROGRAM_START_STEP_IDS = [
   "breathing_bracing",
   "hip_mobility",
@@ -21,7 +21,7 @@ export const PROGRAM_START_STEP_IDS = [
   "adductor_stretch",
 ];
 
-// ✅ 본운동(스트레칭이 아닌) 후보
+// 본운동(스트레칭이 아닌) 후보
 export const PROGRAM_MAIN_STEP_IDS = [
   "fast_walking",
   "goblet_squat",
@@ -36,7 +36,7 @@ export const PROGRAM_MAIN_STEP_IDS = [
   "short_interval_boost",
 ];
 
-// ✅ 마무리(쿨다운/정리 스트레칭) 후보
+// 마무리(쿨다운/정리 스트레칭) 후보
 export const PROGRAM_FINISH_STEP_IDS = [
   "cooldown",
   "breathing_reset",
@@ -99,7 +99,7 @@ export const QUESTIONS: Question[] = [
     ],
   },
 
-  // ✅ 프로그램용: 시작 스트레칭(다중 선택)
+  // 프로그램용: 시작 스트레칭(다중 선택)
   {
     id: "q_program_start_stretch",
     dimension: "program",
@@ -109,7 +109,7 @@ export const QUESTIONS: Question[] = [
     options: toOptions(PROGRAM_START_STEP_IDS), 
   },
 
-  // ✅ 프로그램용: 메인 스텝(다중 선택)
+  // 프로그램용: 메인 스텝(다중 선택)
   {
     id: "q_program_main_steps",
     dimension: "program",
@@ -119,7 +119,7 @@ export const QUESTIONS: Question[] = [
     options: toOptions(PROGRAM_MAIN_STEP_IDS),
   },
 
-  // ✅ 프로그램용: 마무리 스트레칭(다중 선택)
+  // 프로그램용: 마무리 스트레칭(다중 선택)
   {
     id: "q_program_finish_stretch",
     dimension: "program",

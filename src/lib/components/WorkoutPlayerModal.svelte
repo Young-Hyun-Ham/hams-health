@@ -3,7 +3,7 @@
   import { fade, fly } from "svelte/transition";
   import { onDestroy, tick } from "svelte";
 
-  // ✅ 엔진/화면 공통 step 형태에 최대한 맞춤 (+ key는 UI용)
+  // 엔진/화면 공통 step 형태에 최대한 맞춤 (+ key는 UI용)
   type RoutineStep = {
     key: string;          // UI list key
     id?: string;          // reco.data.ts SUBTYPES_STEPS의 id (있으면 좋음)
@@ -24,7 +24,7 @@
   export let title = "추천 루틴";
   export let steps: RoutineStep[] = [];
 
-  // ✅ 엔진 warnings 호환: string[] | {tag,text}[]
+  // 엔진 warnings 호환: string[] | {tag,text}[]
   export let warnings: Warning[] = [];
 
   export let onClose: () => void;
@@ -47,7 +47,7 @@
   let listEl: HTMLOListElement | null = null;
   let itemEls: Array<HTMLLIElement | null> = [];
 
-  // ✅ idx가 변할 때만 스크롤
+  // idx가 변할 때만 스크롤
   let lastScrollIdx = -1;
 
   function registerItem(i: number) {
@@ -244,7 +244,7 @@
     return typeof w === "string" ? w : w.text;
   }
 
-  // ✅ open/close 처리
+  // open/close 처리
   $: if (open) {
     if (!unlockBodyScroll && typeof window !== "undefined") {
       unlockBodyScroll = lockScroll();
@@ -275,7 +275,7 @@
     lastScrollIdx = -1;
   }
 
-  // ✅ idx 변할 때만 스크롤
+  // idx 변할 때만 스크롤
   $: if (open && steps.length) {
     if (idx !== lastScrollIdx) {
       lastScrollIdx = idx;
@@ -361,7 +361,7 @@
             />
           </div>
 
-          <!-- ✅ WARNINGS (있을 때만 노출) -->
+          <!-- WARNINGS (있을 때만 노출) -->
           {#if warnings?.length}
             <div class="mt-3 rounded-2xl border border-amber-400/20 bg-amber-500/10 px-3 py-2">
               <div class="flex items-center gap-2 text-xs font-extrabold text-amber-200">

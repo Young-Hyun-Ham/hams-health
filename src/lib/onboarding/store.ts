@@ -44,7 +44,7 @@ export function setAnswer(qid: string, value: string) {
   }));
 }
 
-// ✅ multi 토글 헬퍼
+// multi 토글 헬퍼
 export function toggleMultiAnswer(id: string, optionValue: string) {
   onboarding.update((s: any) => {
     const cur = s.answers[id];

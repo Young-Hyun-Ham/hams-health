@@ -43,5 +43,5 @@ export type MultiQuestion = {
 
 export type Question = ChoiceQuestion | DobQuestion | MultiQuestion;
 
-// ✅ 기존 그대로 유지 (DOB도 "YYYY-MM-DD" 문자열로 저장)
+// 기존 그대로 유지 (DOB도 "YYYY-MM-DD" 문자열로 저장)
 export type AnswerMap = Record<string, string | string[]>;

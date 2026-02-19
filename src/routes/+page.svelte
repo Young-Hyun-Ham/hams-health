@@ -12,7 +12,7 @@
 
   const onStart = () => goto("/onboarding");
 
-  // ✅ theme persistence
+  // theme persistence
   let themeMode: ThemeMode = "system";
 
   let mql: MediaQueryList | null = null;
@@ -50,7 +50,7 @@
     return SUBTYPES_STEPS.find((s) => s.id === id);
   }
 
-  // ✅ "오늘의 추천 예시" 데이터(랜덤 1개씩)
+  // "오늘의 추천 예시" 데이터(랜덤 1개씩)
   let previewStartId = "";
   let previewMainId = "";
   let previewFinishId = "";
@@ -61,7 +61,7 @@
     previewFinishId = pickOne(PROGRAM_FINISH_STEP_IDS);
   }
 
-  // ✅ 플레이어 모달
+  // 플레이어 모달
   let playerOpen = false;
   let playerTitle = "오늘의 추천 예시";
   let playerWarnings: Array<{ tag: string; text: string }> = [];
@@ -69,7 +69,7 @@
 
   const fallbackImg = "/workouts/placeholder.png";
 
-  // ✅ buildProgramOutput 결과(top_picks[0])를 모달 step 형태로 변환
+  // buildProgramOutput 결과(top_picks[0])를 모달 step 형태로 변환
   function toPlayerSteps(pick: any) {
     const steps = (pick?.routine?.steps ?? []) as any[];
     return steps.map((s: any, i: number) => {
@@ -118,7 +118,7 @@
     playerOpen = true;
   }
 
-  // ✅ reactive 선언
+  // reactive 선언
   $: startMeta = getMeta(previewStartId);
   $: mainMeta = getMeta(previewMainId);
   $: finMeta = getMeta(previewFinishId);

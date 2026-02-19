@@ -93,13 +93,13 @@ ${allowedStepIdsCsv}
 - additionalProperties 금지. 정의된 키 외의 임의 키를 만들지 마라.
 
 [연령/성별 반영 규칙]
-✅ 나이/생년월일 정보:
+나이/생년월일 정보:
 - 입력에 derived.age / derived.age_band / derived.dob 가 있을 수 있다.
 - derived.age/age_band가 있으면 그 값을 최우선으로 사용하라.
 - derived가 없더라도 answers.q0 에 "YYYY-MM-DD" 형태의 dob가 있으면 참고하라.
 - 나이/생년월일 정보는 강도(intensity), 충격성/관절부담 회피, 워밍업/쿨다운 비중에 반드시 반영하라.
 
-✅ 나이 반영 규칙(반드시 지켜라):
+나이 반영 규칙(반드시 지켜라):
 - age 정보가 없으면: 기본(초보/무리 없는 강도)로 계획
 - age >= 50 (또는 age_band = "50s" | "60_plus"):
   - intensity는 보통 2~3 범위로(너무 높은 강도 금지)
@@ -113,7 +113,7 @@ ${allowedStepIdsCsv}
 - age < 18:
   - 안전 우선, intensity 1~3 범위, 과부하/충격 회피
 
-✅ 성별 정보:
+성별 정보:
 - 입력에 derived.gender 가 있을 수 있다. ("male" | "female" | "nonbinary" | "prefer_not")
 - derived.gender가 없더라도 answers.q0_gender 가 있으면 참고하라.
 - 성별 정보는 **편견/고정관념 없이** 안전과 회복, 근력/유산소 밸런스(특히 상체/하체 비중) 조정에만 제한적으로 반영하라.

@@ -8,7 +8,7 @@
   let { children } = $props();
 
   onMount(() => {
-    // ✅ theme store를 구독해서 로컬스토리지 값 읽기/DOM 적용이 반드시 일어나게 함
+    // theme store를 구독해서 로컬스토리지 값 읽기/DOM 적용이 반드시 일어나게 함
     const unsub = theme.subscribe(() => {});
     return () => unsub();
   });

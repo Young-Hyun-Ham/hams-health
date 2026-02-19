@@ -73,7 +73,7 @@ export const recommendationOutputJsonSchema = {
                     items: {
                       type: "object",
                       additionalProperties: false,
-                      // ✅ strict 규칙: properties에 있는 key 전부 required에 포함
+                      // strict 규칙: properties에 있는 key 전부 required에 포함
                       required: ["id", "seconds", "phase", "title", "imgSrc"],
                       properties: {
                         id: { type: "string" },
@@ -185,7 +185,7 @@ export const recommendationOutputJsonSchema = {
                   items: {
                     type: "object",
                     additionalProperties: false,
-                    // ✅ 여기도 동일하게 phase를 required에 포함
+                    // 여기도 동일하게 phase를 required에 포함
                     required: ["id", "seconds", "phase", "title", "imgSrc"],
                     properties: {
                       id: { type: "string" },
@@ -246,7 +246,7 @@ export const recommendationOutputJsonSchema = {
                   items: {
                     type: "object",
                     additionalProperties: false,
-                    // ✅ 여기도 동일하게 phase를 required에 포함
+                    // 여기도 동일하게 phase를 required에 포함
                     required: ["id", "seconds", "phase", "title", "imgSrc"],
                     properties: {
                       id: { type: "string" },

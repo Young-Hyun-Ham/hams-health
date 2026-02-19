@@ -24,7 +24,7 @@ function clamp(n: number, a: number, b: number) {
   return Math.max(a, Math.min(b, n));
 }
 
-type TagScoreMap = Record<string, number>; // ✅ 엔진 내부 계산은 느슨하게(타입 충돌 방지)
+type TagScoreMap = Record<string, number>; // 엔진 내부 계산은 느슨하게(타입 충돌 방지)
 
 function sumObj(o: TagScoreMap) {
   return Object.values(o).reduce((a, b) => a + b, 0);
@@ -143,7 +143,7 @@ const stepMetaMap = new Map(
     s.id,
     {
       title: s.name,
-      imgSrc: s.imgsrc || `/workouts/${s.id}.png`, // ✅ reco.data.ts 기준(imgsrc)
+      imgSrc: s.imgsrc || `/workouts/${s.id}.png`, // reco.data.ts 기준(imgsrc)
     },
   ])
 );
@@ -246,7 +246,7 @@ function phaseBudget(wantedMin: number, topTags: string[]) {
 }
 
 /**
- * ✅ 기존 allocateMinutes는 {name,min}을 만들었는데
+ * 기존 allocateMinutes는 {name,min}을 만들었는데
  * 이제 RoutineStepResolved(id,seconds,title,imgSrc,phase)로 반환한다.
  *
  * - step_pool의 key를 stepId로 취급 (SUBTYPES_STEPS.id와 일치한다는 전제)
@@ -285,7 +285,7 @@ function allocateSeconds(steps: StepPoolItem[], budgetMin: number): RoutineStepR
   }
 
   return steps.map((s, i) => {
-    const id = s.key; // ✅ stepId
+    const id = s.key; // stepId
     const seconds = Math.max(1, mins[i]) * 60;
     const meta = resolveStepMeta(id, s.name);
 
@@ -361,7 +361,7 @@ function buildDynamicRoutine(args: {
   return { duration_min, level, steps };
 }
 
-/** ✅ 템플릿 fallback(legacy name/min)을 resolved로 변환 */
+/** 템플릿 fallback(legacy name/min)을 resolved로 변환 */
 function resolveLegacyTemplateSteps(picked: any): RoutineStepResolved[] {
   const rawSteps = picked?.steps ?? [];
   if (!Array.isArray(rawSteps) || rawSteps.length === 0) {
@@ -380,7 +380,7 @@ function resolveLegacyTemplateSteps(picked: any): RoutineStepResolved[] {
   return rawSteps.map((st: any) => {
     const name = st?.name ?? "스트레칭";
     const min = Math.max(1, Number(st?.min ?? 1));
-    // ✅ name으로 SUBTYPES_STEPS에서 id 역매칭 시도
+    // name으로 SUBTYPES_STEPS에서 id 역매칭 시도
     const found = SUBTYPES_STEPS.find((x: any) => x.name === name);
     const id = found?.id ?? name; // 못 찾으면 name을 임시 id로 사용(최후)
     const meta = resolveStepMeta(id, name);
@@ -494,7 +494,7 @@ function buildCopy(subtype: WorkoutSubtype, reasons: { tag: string; why: string 
 export function recommendWorkouts(input: RecommendInput): RecommendationOutput {
   const { answers, goals, constraints, context } = input;
 
-  // ✅ ProfileTagScores 엄격 타입 대신 내부 계산은 TagScoreMap으로
+  // ProfileTagScores 엄격 타입 대신 내부 계산은 TagScoreMap으로
   const add: TagScoreMap = {};
   const avoid: TagScoreMap = {};
 
@@ -580,12 +580,12 @@ export function recommendWorkouts(input: RecommendInput): RecommendationOutput {
       subtype_name: subtype.name,
       score: Number(x.score.toFixed(3)),
       why_short: "성향/제약 조건과 무난하게 맞는 대안",
-      routine, // ✅ 추가
+      routine, // 추가
     };
   });
 
   return {
-    // ✅ 추가: 폴백 시엔 정적 WORKOUT_SUBTYPES를 그대로 넣어준다(구조적 타입 호환)
+    // 추가: 폴백 시엔 정적 WORKOUT_SUBTYPES를 그대로 넣어준다(구조적 타입 호환)
     generated_subtypes: WORKOUT_SUBTYPES as any,
 
     top_picks: top3,
@@ -601,7 +601,7 @@ export function recommendWorkouts(input: RecommendInput): RecommendationOutput {
 }
 
 // ==========================================================================================
-// ✅ LLM plan 기반 추천 (최종 출력은 기존 RecommendationOutput 유지)
+// LLM plan 기반 추천 (최종 출력은 기존 RecommendationOutput 유지)
 import type { RecoPlanBase } from "./reco.types";
 
 export function recommendFromPlan(input: RecommendInput, plan: RecoPlanBase): RecommendationOutput {

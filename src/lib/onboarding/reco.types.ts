@@ -116,7 +116,7 @@ export type Routine = {
   level: ExperienceLevel;
 
   /**
-   * ✅ 앞으로는 RoutineStepResolved를 표준으로 권장
+   * 앞으로는 RoutineStepResolved를 표준으로 권장
    * - 과도기 호환이 필요하면 아래 유니온으로 잠시 유지 가능
    */
   steps: RoutineStepResolved[]; // ← 표준
@@ -170,7 +170,7 @@ export type RecommendationPick = {
   /** UI 표시용 경고 */
   warnings: Array<{ tag: string; text: string }>;
 
-  /** ✅ 플레이어에서 바로 재생 가능하도록 Resolved steps 포함 */
+  /** 플레이어에서 바로 재생 가능하도록 Resolved steps 포함 */
   routine: Routine;
 
   copy: { title: string; summary: string; reason_lines: string[] };
@@ -205,8 +205,8 @@ export type ProfileTagScores = Record<ProfileTag, number>;
 
 /** LLM이 반환하는 최소 스텝(메타 없음) */
 export type RecoPlanStepRaw = {
-  id: string;        // ✅ SUBTYPES_STEPS의 id 중 하나
-  seconds: number;   // ✅ 초 단위
+  id: string;        // SUBTYPES_STEPS의 id 중 하나
+  seconds: number;   // 초 단위
   phase?: StepPhase;
 };
 
@@ -238,12 +238,12 @@ export type RecoPlanBase = {
   profile_tags: ProfileTag[];
 };
 
-/** ✅ LLM 출력 전용 */
+/** LLM 출력 전용 */
 export type RecoPlanRaw = RecoPlanBase & {
   steps: RecoPlanStepRaw[];
 };
 
-/** ✅ 서버 응답(엔진/화면에서 그대로 사용) */
+/** 서버 응답(엔진/화면에서 그대로 사용) */
 export type RecoPlanResolved = RecoPlanBase & {
   steps: RecoPlanStepResolved[];
 };

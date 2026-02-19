@@ -21,7 +21,7 @@
 
   let playerOpen = false;
 
-  // ✅ 모달로 넘길 데이터(선택된 pick 기반)
+  // 모달로 넘길 데이터(선택된 pick 기반)
   type PlayerStep = RoutineStepResolved & { key: string };
 
   let playerTitle = "추천 루틴";
@@ -31,7 +31,7 @@
   // ===========================================
   // 대안 루틴 재생용
   function playAlternative(alt: any) {
-    // ✅ 기존 플레이어 상태를 그대로 사용
+    // 기존 플레이어 상태를 그대로 사용
     playerTitle = alt?.subtype_name || "대안 루틴";
     playerWarnings = []; // 대안 warnings가 생기면 alt.warnings로 교체 가능
 
@@ -111,25 +111,25 @@
 
   let showResults = false;
 
-  // ✅ 항상 포함될 질문(프로그램 선택을 위한 최소 3개)
+  // 항상 포함될 질문(프로그램 선택을 위한 최소 3개)
   const CORE_IDS = new Set(["q0", "q0_gender", "q0_reco_mode"]);
 
-  // ✅ 현재 추천 모드
+  // 현재 추천 모드
   $: mode = (typeof $onboarding.answers?.q0_reco_mode === "string"
     ? ($onboarding.answers.q0_reco_mode as string)
     : "llm");
 
-  // ✅ program 모드면: core 3개 + program 4개(시간1 + step3)만 남김
-  // ✅ llm/engine 모드면: program 질문은 제외하고 기존 23개(혹은 기존 세트)만 노출
+  // program 모드면: core 3개 + program 4개(시간1 + step3)만 남김
+  // llm/engine 모드면: program 질문은 제외하고 기존 23개(혹은 기존 세트)만 노출
   $: visibleQuestions =
     mode === "program"
       ? QUESTIONS.filter((qq) => CORE_IDS.has(qq.id) || qq.dimension === "program")
       : QUESTIONS.filter((qq) => qq.dimension !== "program");
 
-  // ✅ 화면에서 사용할 총 질문 수/현재 질문
+  // 화면에서 사용할 총 질문 수/현재 질문
   $: total = visibleQuestions.length;
 
-  // ✅ step이 범위를 벗어나면 보정 (모드 변경 시 필수)
+  // step이 범위를 벗어나면 보정 (모드 변경 시 필수)
   $: if ($onboarding.step > total - 1) {
     setStep(Math.max(0, total - 1));
   }
@@ -137,19 +137,19 @@
   $: step = Math.min($onboarding.step, Math.max(0, total - 1));
   $: q = visibleQuestions[step];
 
-  // ✅ 현재 답변 원본
+  // 현재 답변 원본
   $: answerRaw = q ? $onboarding.answers[q.id] : "";
 
-  // ✅ choice(라디오)용 selected string
+  // choice(라디오)용 selected string
   $: selectedValue = typeof answerRaw === "string" ? answerRaw : "";
 
-  // ✅ multi(체크)용 selected array
+  // multi(체크)용 selected array
   $: selectedList = Array.isArray(answerRaw) ? answerRaw : [];
 
-  // ✅ 현재 질문이 multi인지
+  // 현재 질문이 multi인지
   $: isMulti = q && (q as any).kind === "multi";
 
-  // ✅ 다음 버튼 활성화 조건
+  // 다음 버튼 활성화 조건
   $: hasSelection = isMulti ? selectedList.length > 0 : Boolean(selectedValue);
 
   $: progress = total <= 1 ? 0 : Math.round((step / (total - 1)) * 100);
@@ -158,7 +158,7 @@
   $: canShowPreview = step === total - 1;
 
   // =========================
-  // ✅ DOB(select) 입력형 질문 지원
+  // DOB(select) 입력형 질문 지원
   // =========================
   let dobYear = "";
   let dobMonth = "";
@@ -207,7 +207,7 @@
       if (Number(dobDay) > maxDay) dobDay = String(maxDay);
     }
 
-    // ✅ 완성되면 YYYY-MM-DD로 저장, 아니면 ""(미응답)
+    // 완성되면 YYYY-MM-DD로 저장, 아니면 ""(미응답)
     if (dobYear && dobMonth && dobDay) {
       setAnswer(q.id, `${dobYear}-${pad2(dobMonth)}-${pad2(dobDay)}`);
     } else {
@@ -241,13 +241,13 @@
   })();
 
   // =========================
-  // ✅ 선택/다음/이전
+  // 선택/다음/이전
   // =========================
   function select(v: string) {
     if (!q) return;
     setAnswer(q.id, v);
 
-    // ✅ 이미 결과를 보고 있는 상태에서 값을 바꾸면, 결과는 다시 계산해야 함
+    // 이미 결과를 보고 있는 상태에서 값을 바꾸면, 결과는 다시 계산해야 함
     if (showResults) {
       resetReco();
     }
@@ -282,7 +282,7 @@
   }
 
   async function submit() {
-    // ✅ 서버로 보낼 RecommendInput (엔진이 steps 조합할 때 필요한 최소치 포함)
+    // 서버로 보낼 RecommendInput (엔진이 steps 조합할 때 필요한 최소치 포함)
     const a = $onboarding.answers;
     const timeMin =
       mode === "program"
@@ -309,10 +309,10 @@
 
       context: { experience_level: "beginner", weekly_days: 3 },
     };
-    // ✅ program 모드: 결과 섹션 없이 바로 플레이
+    // program 모드: 결과 섹션 없이 바로 플레이
     if (mode === "program") {
       // 로딩은 필요하니 recoState.loading으로 표시되게 하고 싶으면 showResults=true 유지해도 됨
-      showResults = false; // ✅ 결과 카드 영역은 숨김
+      showResults = false; // 결과 카드 영역은 숨김
 
       await requestRecommendation(input);
 
@@ -326,7 +326,7 @@
 
     showResults = true;
 
-    // ✅ 결과 섹션으로 스크롤 (로딩 카드가 먼저 보이게)
+    // 결과 섹션으로 스크롤 (로딩 카드가 먼저 보이게)
     requestAnimationFrame(() => {
       document
         .getElementById("recommendation-section")
@@ -453,7 +453,7 @@
           </article>
 
           {#if (q as any).kind === "dob"}
-            <!-- ✅ DOB(select) -->
+            <!-- DOB(select) -->
             <div class="mt-5">
               <div class="grid grid-cols-3 gap-2">
                 <div>
@@ -517,7 +517,7 @@
               </div>
             </div>
           {:else if (q as any).kind === "multi"}
-            <!-- ✅ MULTI(체크 토글) + 미리보기 -->
+            <!-- MULTI(체크 토글) + 미리보기 -->
             <div class="mt-5 space-y-2.5">
               {#each (q as any).options as opt (opt.value)}
                 {@const checked = selectedList.includes(opt.value)}
@@ -531,7 +531,7 @@
                       : "ring-0",
                   ].join(" ")}
                 >
-                  <!-- ✅ 왼쪽: 토글 클릭 영역 -->
+                  <!-- 왼쪽: 토글 클릭 영역 -->
                   <button
                     type="button"
                     class="flex flex-1 items-start gap-3 rounded-xl px-3 py-2 text-left"
@@ -564,7 +564,7 @@
                     </div>
                   </button>
 
-                  <!-- ✅ 오른쪽: 미리보기 버튼 -->
+                  <!-- 오른쪽: 미리보기 버튼 -->
                   <button
                     type="button"
                     class="shrink-0 inline-flex items-center justify-center rounded-xl px-3 text-xs font-bold
@@ -582,7 +582,7 @@
             </div>
 
           {:else}
-            <!-- ✅ 라디오 선택(단일) -->
+            <!-- 라디오 선택(단일) -->
             <fieldset class="mt-5 space-y-2.5">
               <legend class="sr-only">선택지</legend>
 
@@ -632,7 +632,7 @@
           </div>
         </section>
 
-        <!-- ✅ 결과 미리보기 힌트(마지막 페이지에서만) -->
+        <!-- 결과 미리보기 힌트(마지막 페이지에서만) -->
         {#if canShowPreview}
           <div
             class="mt-4 rounded-3xl border border-zinc-200 bg-white p-4 shadow-sm dark:border-zinc-800 dark:bg-zinc-900"
@@ -653,7 +653,7 @@
       </main>
     {/if}
 
-    <!-- ✅ Recommendation Results -->
+    <!-- Recommendation Results -->
     {#if showResults}
       <section
         id="recommendation-section"
@@ -759,7 +759,7 @@
                     score: {pick.score}
                   </span>
 
-                  <!-- ✅ Play 버튼 -->
+                  <!-- Play 버튼 -->
                   <button
                     type="button"
                     class="inline-flex h-8 w-8 items-center justify-center rounded-xl
